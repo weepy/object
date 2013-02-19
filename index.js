@@ -41,4 +41,4 @@ object.extend = function(proto) {
 }
 
 
-module.exports = object
+(typeof module != 'undefined') && module.exports = object
