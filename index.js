@@ -1,7 +1,7 @@
 function object(o) {
   if(!(this instanceof object)) return new object(o)
   o && this.extend(o)
-  this.initialize && this.initialize()
+  this.initialize && this.initialize(o)
 }
 
 object.prototype.each = function(fn) {
@@ -21,24 +21,24 @@ object.extend = function(proto) {
   var parent = this
 
   // copy of object constructor
-  function child(o) {
-    if(!(this instanceof child)) return new child(o)
+  function object(o) {
+    if(!(this instanceof object)) return new object(o)
     o && this.extend(o)
-    this.initialize && this.initialize()
+    this.initialize && this.initialize(o)
   }
 
   function ctor() {}
   ctor.prototype = parent.prototype
-  child.prototype = new ctor()
-  child.prototype.constructor = child;
+  object.prototype = new ctor()
+  object.prototype.constructor = object;
 
   if(proto)
     for(var i in proto) {
-      child.prototype[i] = proto[i]
+      object.prototype[i] = proto[i]
     }
   
-  child.extend = parent.extend
-  return child
+  object.extend = parent.extend
+  return object
 }
 
 object.keys = Object.keys
