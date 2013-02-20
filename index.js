@@ -17,7 +17,8 @@ object.prototype.extend = function (o) {
     this[key] = o[key]
 }
 
-object.extend = function(proto) {
+object.extend = function(methods) {
+  methods = methods || {}
   var parent = this
 
   // copy of object constructor
@@ -32,10 +33,10 @@ object.extend = function(proto) {
   object.prototype = new ctor()
   object.prototype.constructor = object;
 
-  if(proto)
-    for(var i in proto) {
-      object.prototype[i] = proto[i]
-    }
+    
+  for(var i in methods) {
+    object.prototype[i] = methods[i]
+  }
   
   object.extend = parent.extend
   return object

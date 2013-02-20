@@ -106,7 +106,12 @@ describe('object', function(){
       assert( s.a == 1)
     })
 
+
   })  
+
+  
+
+
 
 })
 
