@@ -4,17 +4,21 @@ function object(o) {
   this.initialize && this.initialize(o)
 }
 
-object.prototype.each = function(fn) {
-  var keys = object.keys(this)
-  for(var i=0; i<keys.length; i++) {
-    var key = keys[i]
-    fn( key, this[key] )
-  }
-}
-
 object.prototype.extend = function (o) {
   for(var key in o)
     this[key] = o[key]
+  return this
+}
+
+object.prototype.toJSON = function() {
+  var ret = {}
+    , keys = Object.keys(this)
+    , i = keys.length;
+  
+  while (i--) {
+    ret[keys[i]] = this[keys[i]];
+  }
+  return ret
 }
 
 object.extend = function(methods) {
@@ -43,14 +47,6 @@ object.extend = function(methods) {
 }
 
 object.keys = Object.keys
-
-object.toJSON = function(o) {
-  var ret = {}
-  o.each(function(key, val) {
-    ret[key] = val
-  })
-  return ret
-}
 
 // export if we're in node
 if(typeof module != 'undefined') module.exports = object;

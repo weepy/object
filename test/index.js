@@ -18,16 +18,6 @@ describe('object()', function(){
       assert(o.b==4)
     })
 
-    it('iterate over properties', function(){
-      var expect = { a:1, c:2, b:4}
-        , calls = 0
-      o.each(function(key, val) {
-        assert( expect[key] == val)
-        calls++
-      })
-      assert(calls == 3)
-    })
-
     it('calls initialize if present', function(){
       var ok = false
       var o = object({initialize: function() {
@@ -45,24 +35,24 @@ describe('object()', function(){
     })
   })
 
-})
-
-describe('object', function(){
-  describe('keys', function(){
-    it('equals the list of keys', function(){
-      var o = object({a:1, b:2})
-      assert( object.keys(o).join(' ') == 'a b')
-    })
-  })
-
   describe('toJSON', function(){
     it('creates a bare object with properties', function(){
       var o = object({a:1, b:2})
-      var x = object.toJSON(o)      
+      var x = o.toJSON(o)      
       assert(x instanceof Object)
       assert(!(x instanceof object))
       assert(x.a == 1)
       assert(x.b == 2)
+    })
+  })
+  
+})
+
+describe('object', function(){
+  describe('object.keys', function(){
+    it('equals the list of keys', function(){
+      var o = object({a:1, b:2})
+      assert( Object.keys(o).join(' ') == 'a b')
     })
   })
 
@@ -108,10 +98,6 @@ describe('object', function(){
 
 
   })  
-
-  
-
-
 
 })
 
